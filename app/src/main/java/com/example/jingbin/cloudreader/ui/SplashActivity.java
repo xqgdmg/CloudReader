@@ -20,6 +20,7 @@ import java.util.Random;
 
 /**
  * 闪屏广告
+ * 布局没有 变量的 DataBinding，感觉这才是正确的使用姿势啊
  */
 public class SplashActivity extends AppCompatActivity {
 
@@ -56,42 +57,13 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 3500);
 
+        // 点击跳转直接到主页面
         mBinding.tvJump.setOnClickListener(new PerfectClickListener() {
             @Override
             protected void onNoDoubleClick(View v) {
                 toMainActivity();
-//                animationEnd();
             }
         });
-    }
-
-    /**
-     * 实现监听跳转效果
-     */
-    private Animation.AnimationListener animationListener = new Animation.AnimationListener() {
-        @Override
-        public void onAnimationEnd(Animation animation) {
-            animationEnd();
-        }
-
-        @Override
-        public void onAnimationStart(Animation animation) {
-        }
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-        }
-    };
-
-
-    private void animationEnd() {
-        synchronized (SplashActivity.this) {
-            if (!animationEnd) {
-                animationEnd = true;
-                mBinding.ivPic.clearAnimation();
-                toMainActivity();
-            }
-        }
     }
 
     private void toMainActivity() {
@@ -100,6 +72,8 @@ public class SplashActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+
+        // 跳转动画
         overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out);
         finish();
         isIn = true;
