@@ -18,7 +18,10 @@ import com.example.jingbin.cloudreader.utils.PerfectClickListener;
 
 import java.util.Random;
 
-public class TransitionActivity extends AppCompatActivity {
+/**
+ * 闪屏广告
+ */
+public class SplashActivity extends AppCompatActivity {
 
     private ActivityTransitionBinding mBinding;
     private boolean animationEnd;
@@ -27,13 +30,14 @@ public class TransitionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_transition);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_splash1);
 
-        int i = new Random().nextInt(ConstantsImageUrl.TRANSITION_URLS.length);
+        // 随机显示一张图片
+        int randomInt = new Random().nextInt(ConstantsImageUrl.TRANSITION_URLS.length);
         // 先显示默认图
         mBinding.ivDefultPic.setImageDrawable(CommonUtils.getDrawable(R.drawable.img_transition_default));
         Glide.with(this)
-                .load(ConstantsImageUrl.TRANSITION_URLS[i])
+                .load(ConstantsImageUrl.TRANSITION_URLS[randomInt])
                 .placeholder(R.drawable.img_transition_default)
                 .error(R.drawable.img_transition_default)
                 .into(mBinding.ivPic);
@@ -51,10 +55,6 @@ public class TransitionActivity extends AppCompatActivity {
                 toMainActivity();
             }
         }, 3500);
-
-//        Animation animation = AnimationUtils.loadAnimation(this, R.anim.transition_anim);
-//        animation.setAnimationListener(animationListener);
-//        mBinding.ivPic.startAnimation(animation);
 
         mBinding.tvJump.setOnClickListener(new PerfectClickListener() {
             @Override
@@ -85,7 +85,7 @@ public class TransitionActivity extends AppCompatActivity {
 
 
     private void animationEnd() {
-        synchronized (TransitionActivity.this) {
+        synchronized (SplashActivity.this) {
             if (!animationEnd) {
                 animationEnd = true;
                 mBinding.ivPic.clearAnimation();

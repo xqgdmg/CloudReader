@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_transition"
+        android:id="@+id/activity_splash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.jingbin.cloudreader.ui.TransitionActivity">
+        tools:context="com.example.jingbin.cloudreader.ui.SplashActivity">
 
-
+        <!-- 随机图片 -->
         <ImageView
             android:id="@+id/iv_pic"
             android:layout_width="match_parent"
@@ -28,6 +28,7 @@
             android:textColor="#fff"
             android:textSize="16sp" />
 
+        <!-- 默认图片 -->
         <ImageView
             android:id="@+id/iv_defult_pic"
             android:layout_width="match_parent"
