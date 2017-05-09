@@ -46,9 +46,7 @@ import rx.functions.Action1;
 
 
 /**
- * Created by jingbin on 16/11/21.
- * Link to:https://github.com/youlookwhat/CloudReader
- * Contact me:http://www.jianshu.com/u/e43c6e979831
+ *
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
@@ -61,14 +59,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // 一定需要对应的bean
     private ActivityMainBinding mBinding;
-    private ImageView llTitleGank;
-    private ImageView llTitleOne;
-    private ImageView llTitleDou;
+    private ImageView ivMainFragment01;
+    private ImageView ivMainFragment02;
+    private ImageView ivMainFragment03;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         initStatusView();
@@ -77,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         StatusBarUtil.setColorNoTranslucentForDrawerLayout(MainActivity.this, drawerLayout,
                 CommonUtils.getColor(R.color.colorTheme));
+
         initContentFragment();
         initDrawerLayout();
         initListener();
@@ -97,16 +95,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         vpContent = mBinding.include.vpContent;
         fab.setVisibility(View.GONE);
 
-        llTitleGank = mBinding.include.ivTitleGank;
-        llTitleOne = mBinding.include.ivTitleOne;
-        llTitleDou = mBinding.include.ivTitleDou;
+        ivMainFragment01 = mBinding.include.ivMainFragment01;
+        ivMainFragment02 = mBinding.include.ivMainFragment02;
+        ivMainFragment03 = mBinding.include.ivMainFragment03;
     }
 
     private void initListener() {
         llTitleMenu.setOnClickListener(this);
-        mBinding.include.ivTitleGank.setOnClickListener(this);
-        mBinding.include.ivTitleDou.setOnClickListener(this);
-        mBinding.include.ivTitleOne.setOnClickListener(this);
+        mBinding.include.ivMainFragment01.setOnClickListener(this);
+        mBinding.include.ivMainFragment03.setOnClickListener(this);
+        mBinding.include.ivMainFragment02.setOnClickListener(this);
         fab.setOnClickListener(this);
     }
 
@@ -141,10 +139,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 注意使用的是：getSupportFragmentManager
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragmentList);
         vpContent.setAdapter(adapter);
+
         // 设置ViewPager最大缓存的页面个数(cpu消耗少)
         vpContent.setOffscreenPageLimit(2);
         vpContent.addOnPageChangeListener(this);
-        mBinding.include.ivTitleGank.setSelected(true);
+        mBinding.include.ivMainFragment01.setSelected(true);
         vpContent.setCurrentItem(0);
 
         setSupportActionBar(toolbar);
@@ -191,27 +190,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ll_title_menu:// 开启菜单
                 drawerLayout.openDrawer(GravityCompat.START);
                 break;
-            case R.id.iv_title_gank:// 干货栏
+            case R.id.iv_main_fragment01:// 干货栏
                 if (vpContent.getCurrentItem() != 0) {//不然cpu会有损耗
-                    llTitleGank.setSelected(true);
-                    llTitleOne.setSelected(false);
-                    llTitleDou.setSelected(false);
+                    ivMainFragment01.setSelected(true);
+                    ivMainFragment02.setSelected(false);
+                    ivMainFragment03.setSelected(false);
                     vpContent.setCurrentItem(0);
                 }
                 break;
-            case R.id.iv_title_one:// 电影栏
+            case R.id.iv_main_fragment02:// 电影栏
                 if (vpContent.getCurrentItem() != 1) {
-                    llTitleOne.setSelected(true);
-                    llTitleGank.setSelected(false);
-                    llTitleDou.setSelected(false);
+                    ivMainFragment02.setSelected(true);
+                    ivMainFragment01.setSelected(false);
+                    ivMainFragment03.setSelected(false);
                     vpContent.setCurrentItem(1);
                 }
                 break;
-            case R.id.iv_title_dou:// 书籍栏
+            case R.id.iv_main_fragment03:// 书籍栏
                 if (vpContent.getCurrentItem() != 2) {
-                    llTitleDou.setSelected(true);
-                    llTitleOne.setSelected(false);
-                    llTitleGank.setSelected(false);
+                    ivMainFragment03.setSelected(true);
+                    ivMainFragment02.setSelected(false);
+                    ivMainFragment01.setSelected(false);
                     vpContent.setCurrentItem(2);
                 }
                 break;
@@ -271,19 +270,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onPageSelected(int position) {
         switch (position) {
             case 0:
-                llTitleGank.setSelected(true);
-                llTitleOne.setSelected(false);
-                llTitleDou.setSelected(false);
+                ivMainFragment01.setSelected(true);
+                ivMainFragment02.setSelected(false);
+                ivMainFragment03.setSelected(false);
                 break;
             case 1:
-                llTitleOne.setSelected(true);
-                llTitleGank.setSelected(false);
-                llTitleDou.setSelected(false);
+                ivMainFragment02.setSelected(true);
+                ivMainFragment01.setSelected(false);
+                ivMainFragment03.setSelected(false);
                 break;
             case 2:
-                llTitleDou.setSelected(true);
-                llTitleOne.setSelected(false);
-                llTitleGank.setSelected(false);
+                ivMainFragment03.setSelected(true);
+                ivMainFragment02.setSelected(false);
+                ivMainFragment01.setSelected(false);
                 break;
         }
     }

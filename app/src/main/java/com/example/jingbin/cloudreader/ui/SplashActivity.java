@@ -7,12 +7,11 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
-
 import com.bumptech.glide.Glide;
 import com.example.jingbin.cloudreader.MainActivity;
 import com.example.jingbin.cloudreader.R;
 import com.example.jingbin.cloudreader.app.ConstantsImageUrl;
-import com.example.jingbin.cloudreader.databinding.ActivityTransitionBinding;
+import com.example.jingbin.cloudreader.databinding.ActivitySplash1Binding;
 import com.example.jingbin.cloudreader.utils.CommonUtils;
 import com.example.jingbin.cloudreader.utils.PerfectClickListener;
 
@@ -24,7 +23,7 @@ import java.util.Random;
  */
 public class SplashActivity extends AppCompatActivity {
 
-    private ActivityTransitionBinding mBinding;
+    private ActivitySplash1Binding mBinding;
     private boolean animationEnd;
     private boolean isIn;
 

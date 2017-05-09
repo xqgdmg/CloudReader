@@ -43,7 +43,10 @@
                     android:src="@drawable/titlebar_menu" />
             </FrameLayout>
 
+            <!-- 系统自带 HorizontalScrollView -->
             <HorizontalScrollView
+                android:overScrollMode="never"
+                android:scrollbars="none"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center">
@@ -55,7 +58,7 @@
                     app:theme="@style/AppTheme">
 
                     <ImageView
-                        android:id="@+id/iv_title_gank"
+                        android:id="@+id/iv_main_fragment01"
                         android:layout_width="55dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -63,14 +66,38 @@
                         android:src="@drawable/titlebar_disco" />
 
                     <ImageView
-                        android:id="@+id/iv_title_one"
+                        android:id="@+id/iv_main_fragment02"
                         android:layout_width="55dp"
                         android:layout_height="match_parent"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:src="@drawable/titlebar_music" />
 
                     <ImageView
-                        android:id="@+id/iv_title_dou"
+                        android:id="@+id/iv_main_fragment03"
+                        android:layout_width="55dp"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/titlebar_friends" />
+
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/titlebar_friends" />
+
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/titlebar_friends" />
+
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/titlebar_friends" />
+
+                    <ImageView
                         android:layout_width="55dp"
                         android:layout_height="match_parent"
                         android:background="?attr/selectableItemBackgroundBorderless"
