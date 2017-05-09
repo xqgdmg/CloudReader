@@ -24,7 +24,7 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:theme="@style/ToolbarStyle" />
 
-
+            <!-- 子类的容器 -->
             <RelativeLayout
                 android:id="@+id/container"
                 android:layout_width="match_parent"
@@ -63,6 +63,7 @@
                     android:layout_marginTop="80dp"
                     android:gravity="center_vertical">
 
+                    <!-- 帧动画，在布局中指定了动画集合 -->
                     <ImageView
                         android:id="@+id/img_progress"
                         android:layout_width="wrap_content"

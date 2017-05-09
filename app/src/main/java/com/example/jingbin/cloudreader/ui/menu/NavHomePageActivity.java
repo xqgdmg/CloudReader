@@ -12,6 +12,9 @@ import com.example.jingbin.cloudreader.databinding.ActivityNavHomePageBinding;
 import com.example.jingbin.cloudreader.utils.ShareUtils;
 import com.example.jingbin.cloudreader.view.statusbar.StatusBarUtil;
 
+/**
+ * 项目主页
+ */
 public class NavHomePageActivity extends AppCompatActivity {
 
     private ActivityNavHomePageBinding binding;
@@ -31,6 +34,9 @@ public class NavHomePageActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 为什么要提供方法自己启动自己
+     */
     public static void startHome(Context mContext) {
         Intent intent = new Intent(mContext, NavHomePageActivity.class);
         mContext.startActivity(intent);

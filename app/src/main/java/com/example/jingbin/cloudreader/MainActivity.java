@@ -154,7 +154,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
+    /**
+     * 避免在1秒内出发多次点击
+     */
     private PerfectClickListener listener = new PerfectClickListener() {
         @Override
         protected void onNoDoubleClick(final View v) {

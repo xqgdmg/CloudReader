@@ -25,6 +25,7 @@
 
 
                 <!--隐藏此处设置上面控件背景，状态栏透明-->
+                <!-- app:layout_collapseMode="parallax" 写不写都是一样的 -->
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
