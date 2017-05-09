@@ -35,8 +35,6 @@ import com.example.jingbin.cloudreader.view.webview.config.MyWebViewClient;
  * 网页可以处理:
  * 点击相应控件:拨打电话、发送短信、发送邮件、上传图片、播放视频
  * 进度条、返回网页上一层、显示网页标题
- * Thanks to: https://github.com/youlookwhat/WebViewStudy
- * contact me: http://www.jianshu.com/users/e43c6e979831/latest_articles
  */
 public class WebViewActivity extends AppCompatActivity implements IWebPageView {
 

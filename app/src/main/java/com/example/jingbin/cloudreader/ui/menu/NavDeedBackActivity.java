@@ -22,7 +22,7 @@ public class NavDeedBackActivity extends BaseActivity<ActivityNavDeedBackBinding
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_deed_back);
         setTitle("问题反馈");
-        showContentView();
+        showContentView();// 直接显示内容，不用加载中
 
         bindingView.tvIssues.setOnClickListener(listener);
         bindingView.tvJianshu.setOnClickListener(listener);
@@ -38,7 +38,7 @@ public class NavDeedBackActivity extends BaseActivity<ActivityNavDeedBackBinding
                 case R.id.tv_issues:
                     WebViewActivity.loadUrl(v.getContext(),CommonUtils.getString(R.string.string_url_issues),"Issues");
                     break;
-                case R.id.tv_qq:
+                case R.id.tv_qq: // 为什么能打开qq客户端，并且没有客户端会报错
                     String url = "mqqwpa://im/chat?chat_type=wpa&uin=770413277";
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
                     break;
