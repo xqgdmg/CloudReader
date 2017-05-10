@@ -35,7 +35,8 @@ public class DoubanTopActivity extends BaseActivity<ActivityDoubanTopBinding> {
         setTitle("豆瓣电影Top250");
         mDouBanTopAdapter = new DouBanTopAdapter(DoubanTopActivity.this);
         loadDouBanTop250();
-        bindingView.xrvTop.setLoadingListener(new XRecyclerView.LoadingListener() {
+
+        bindingView.xrvTop.setLoadingListener(new XRecyclerView.LoadingListener() {// 子类自己的视图 bindingView
             @Override
             public void onRefresh() {
 

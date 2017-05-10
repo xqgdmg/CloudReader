@@ -24,7 +24,9 @@ public class ShareUtils {
         context.startActivity(Intent.createChooser(shareIntent, title));
     }
 
-
+    /**
+     * 系统自带分享
+     */
     public static void share(Context context, String extraText) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");

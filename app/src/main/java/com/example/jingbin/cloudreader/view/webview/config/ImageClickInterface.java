@@ -7,8 +7,7 @@ import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
 /**
- * Created by jingbin on 2016/11/17.
- * js通信接口
+ * WebView  js通信接口
  */
 public class ImageClickInterface {
     private Context context;

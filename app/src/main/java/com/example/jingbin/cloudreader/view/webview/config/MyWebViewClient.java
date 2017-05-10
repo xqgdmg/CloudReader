@@ -11,12 +11,14 @@ import com.example.jingbin.cloudreader.view.webview.WebViewActivity;
 
 
 /**
- * Created by jingbin on 2016/11/17.
  * 监听网页链接:
  * - 优酷视频直接跳到自带浏览器
  * - 根据标识:打电话、发短信、发邮件
  * - 进度条的显示
  * - 添加javascript监听
+ *
+ * 来自百度：
+ *      WebViewClient就是帮助WebView处理各种通知、请求事件的，具体来说包括：onLoadResource 、onPageStart 、onPageFinish 、onReceiveError 、onReceivedHttpAuthRequest
  */
 public class MyWebViewClient extends WebViewClient {
 

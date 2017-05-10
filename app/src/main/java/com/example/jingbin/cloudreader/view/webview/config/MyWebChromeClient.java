@@ -16,10 +16,12 @@ import static android.app.Activity.RESULT_OK;
 
 
 /**
- * Created by jingbin on 2016/11/17.
  * - 播放网络视频配置
- * - 上传图片(兼容)
+ * - 上传图片(兼容不用安卓手机版本) 叼叼叼
  * 点击空白区域的左边,因是公司图片,自己编辑过,所以显示不全,见谅
+ *
+ * 来自百度：
+ *      WebChromeClient是辅助WebView处理 Javascript的对话框，网站图标，网站title，加载进度等
  */
 public class MyWebChromeClient extends WebChromeClient {
 
@@ -43,7 +45,10 @@ public class MyWebChromeClient extends WebChromeClient {
     @Override
     public void onShowCustomView(View view, CustomViewCallback callback) {
         mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        // 还需要隐藏 WebView
         mIWebPageView.hindWebView();
+
         // 如果一个视图已经存在，那么立刻终止并新建一个
         if (mXCustomView != null) {
             callback.onCustomViewHidden();
@@ -106,6 +111,9 @@ public class MyWebChromeClient extends WebChromeClient {
 
     private String title = "";
 
+    /**
+     * 获取网页的标题
+     */
     public String getTitle() {
         return title + " ";
     }

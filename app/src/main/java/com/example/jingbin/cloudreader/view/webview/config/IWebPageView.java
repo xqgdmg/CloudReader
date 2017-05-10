@@ -4,7 +4,7 @@ import android.view.View;
 
 /**
  * Created by jingbin on 2016/11/17.
- * WebView 接口
+ * WebViewActivity，MyWebViewClient，MyWebChromeClient 共同实现的接口
  */
 public interface IWebPageView {
 
@@ -19,7 +19,6 @@ public interface IWebPageView {
 
     //  进度条先加载到90%,然后再加载到100%
     void startProgress();
-
 
     /**
      * 进度条变化时调用
