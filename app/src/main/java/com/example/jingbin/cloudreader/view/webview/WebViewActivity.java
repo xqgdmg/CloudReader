@@ -1,5 +1,6 @@
 package com.example.jingbin.cloudreader.view.webview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -33,7 +34,7 @@ import com.example.jingbin.cloudreader.view.webview.config.MyWebViewClient;
 
 /**
  * 网页可以处理:
- * 点击相应控件:拨打电话、发送短信、发送邮件、上传图片、播放视频
+ * 点击相应控件:拨打电话、发送短信、发送邮件、上传图片、播放视频、跳转qq客户端
  * 进度条、返回网页上一层、显示网页标题
  */
 public class WebViewActivity extends AppCompatActivity implements IWebPageView {
@@ -126,6 +127,10 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
         mTitleToolBar.setTitle(mTitle);
     }
 
+    /**
+     * webView 设置
+     */
+    @SuppressLint("SetJavaScriptEnabled")
     private void initWebView() {
         mProgressBar.setVisibility(View.VISIBLE);
         WebSettings ws = webView.getSettings();

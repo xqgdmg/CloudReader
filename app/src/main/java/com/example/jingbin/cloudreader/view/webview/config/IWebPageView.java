@@ -4,6 +4,7 @@ import android.view.View;
 
 /**
  * Created by jingbin on 2016/11/17.
+ * WebView 接口
  */
 public interface IWebPageView {
 
