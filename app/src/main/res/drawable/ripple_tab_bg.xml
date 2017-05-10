@@ -8,11 +8,14 @@
             <solid android:color="@color/colorWhite" />
         </shape>
     </item>
+
+    <!-- 点击的时候是灰色 -->
     <item android:state_pressed="true">
         <shape>
             <solid android:color="@color/itemLowBackground" />
         </shape>
     </item>
+
     <item android:state_pressed="false">
         <shape>
             <solid android:color="@color/colorWhite" />

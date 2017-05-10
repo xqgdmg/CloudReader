@@ -15,7 +15,7 @@ import com.example.jingbin.cloudreader.utils.CommonUtils;
 import com.example.jingbin.cloudreader.utils.PerfectClickListener;
 import com.example.jingbin.cloudreader.view.webview.WebViewActivity;
 
-public class NavAboutActivity extends BaseActivity<ActivityNavAboutBinding> {
+public class AboutMeActivity extends BaseActivity<ActivityNavAboutBinding> {
 
     private static String string_url_update_log = "http://jingbin.me/2016/12/30/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97-%E4%BA%91%E9%98%85/";
 
@@ -84,7 +84,7 @@ public class NavAboutActivity extends BaseActivity<ActivityNavAboutBinding> {
     };
 
     public static void start(Context mContext) {
-        Intent intent = new Intent(mContext, NavAboutActivity.class);
+        Intent intent = new Intent(mContext, AboutMeActivity.class);
         mContext.startActivity(intent);
     }
 }

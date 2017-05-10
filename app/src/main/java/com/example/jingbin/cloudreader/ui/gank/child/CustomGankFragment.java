@@ -25,9 +25,9 @@ import com.example.xrecyclerview.XRecyclerView;
 
 import rx.Subscription;
 
-public class CustomFragment extends BaseFragment<FragmentCustomBinding> {
+public class CustomGankFragment extends BaseFragment<FragmentCustomBinding> {
 
-    private static final String TAG = "CustomFragment";
+    private static final String TAG = "CustomGankFragment";
     private static final String TYPE = "mType";
     private String mType = "all";
     private int mPage = 1;
@@ -42,7 +42,7 @@ public class CustomFragment extends BaseFragment<FragmentCustomBinding> {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        DebugUtil.error("--CustomFragment   ----onActivityCreated");
+        DebugUtil.error("--CustomGankFragment   ----onActivityCreated");
 
         mACache = ACache.get(getContext());
         mModel = new GankOtherModel();
@@ -131,7 +131,7 @@ public class CustomFragment extends BaseFragment<FragmentCustomBinding> {
 
             @Override
             public void addSubscription(Subscription subscription) {
-                CustomFragment.this.addSubscription(subscription);
+                CustomGankFragment.this.addSubscription(subscription);
             }
         });
     }
@@ -253,7 +253,7 @@ public class CustomFragment extends BaseFragment<FragmentCustomBinding> {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        DebugUtil.error("--CustomFragment   ----onDestroy");
+        DebugUtil.error("--CustomGankFragment   ----onDestroy");
     }
 
     @Override

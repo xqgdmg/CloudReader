@@ -44,7 +44,7 @@ public abstract class BaseFragment<SV extends ViewDataBinding> extends Fragment 
         View ll = inflater.inflate(R.layout.fragment_base, null);
         bindingView = DataBindingUtil.inflate(getActivity().getLayoutInflater(), setContent(), null, false);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        bindingView.getRoot().setLayoutParams(params);
+        bindingView.getRoot().setLayoutParams(params); // 设置布局填充满父控件
         mContainer = (RelativeLayout) ll.findViewById(R.id.container);
         mContainer.addView(bindingView.getRoot());
         return ll;
@@ -58,7 +58,7 @@ public abstract class BaseFragment<SV extends ViewDataBinding> extends Fragment 
         super.setUserVisibleHint(isVisibleToUser);
         if (getUserVisibleHint()) {
             mIsVisible = true;
-            onVisible();
+            onVisible();// 加载数据
         } else {
             mIsVisible = false;
             onInvisible();
@@ -71,7 +71,7 @@ public abstract class BaseFragment<SV extends ViewDataBinding> extends Fragment 
     /**
      * 显示时加载数据,需要这样的使用
      * 注意声明 isPrepared，先初始化
-     * 生命周期会先执行 setUserVisibleHint 再执行onActivityCreated
+     * 生命周期会先执行 setUserVisibleHint 再执行 onActivityCreated
      * 在 onActivityCreated 之后第一次显示加载数据，只加载一次
      */
     protected void loadData() {
@@ -81,25 +81,32 @@ public abstract class BaseFragment<SV extends ViewDataBinding> extends Fragment 
         loadData();
     }
 
+    /**
+     * onActivityCreated
+     */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        // 找控件
         mLlProgressBar = getView(R.id.ll_progress_bar);
         ImageView img = getView(R.id.img_progress);
+        mRefresh = getView(R.id.ll_error_refresh);
 
         // 加载动画
         mAnimationDrawable = (AnimationDrawable) img.getDrawable();
+
         // 默认进入页面就开启动画
         if (!mAnimationDrawable.isRunning()) {
             mAnimationDrawable.start();
         }
-        mRefresh = getView(R.id.ll_error_refresh);
+
         // 点击加载失败布局
         mRefresh.setOnClickListener(new PerfectClickListener() {
             @Override
             protected void onNoDoubleClick(View v) {
                 showLoading();
-                onRefresh();
+                onRefresh();// 为空，子类处理
             }
         });
         bindingView.getRoot().setVisibility(View.GONE);
@@ -179,6 +186,9 @@ public abstract class BaseFragment<SV extends ViewDataBinding> extends Fragment 
         }
     }
 
+    /**
+     * rxjava
+     */
     public void addSubscription(Subscription s) {
         if (this.mCompositeSubscription == null) {
             this.mCompositeSubscription = new CompositeSubscription();

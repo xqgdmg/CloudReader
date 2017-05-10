@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * Created by jingbin on 16/12/14.
  * 展示书籍的页面
  */
-public class BookFragment extends BaseFragment<FragmentBookBinding> {
+public class MainFragment03 extends BaseFragment<FragmentBookBinding> {
 
     private ArrayList<String> mTitleList = new ArrayList<>(3);
     private ArrayList<Fragment> mFragments = new ArrayList<>(3);

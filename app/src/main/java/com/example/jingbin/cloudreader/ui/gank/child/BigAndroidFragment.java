@@ -22,9 +22,9 @@ import rx.Subscription;
 /**
  * 大安卓 fragment
  */
-public class AndroidFragment extends BaseFragment<FragmentAndroidBinding> {
+public class BigAndroidFragment extends BaseFragment<FragmentAndroidBinding> {
 
-    private static final String TAG = "AndroidFragment";
+    private static final String TAG = "BigAndroidFragment";
     private static final String TYPE = "mType";
     private String mType = "Android";
     private int mPage = 1;
@@ -35,8 +35,8 @@ public class AndroidFragment extends BaseFragment<FragmentAndroidBinding> {
     private GankIoDataBean mAndroidBean;
     private GankOtherModel mModel;
 
-    public static AndroidFragment newInstance(String type) {
-        AndroidFragment fragment = new AndroidFragment();
+    public static BigAndroidFragment newInstance(String type) {
+        BigAndroidFragment fragment = new BigAndroidFragment();
         Bundle args = new Bundle();
         args.putString(TYPE, type);
         fragment.setArguments(args);
@@ -139,7 +139,7 @@ public class AndroidFragment extends BaseFragment<FragmentAndroidBinding> {
 
             @Override
             public void addSubscription(Subscription subscription) {
-                AndroidFragment.this.addSubscription(subscription);
+                BigAndroidFragment.this.addSubscription(subscription);
             }
         });
     }

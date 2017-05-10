@@ -28,7 +28,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class OneFragment extends BaseFragment<FragmentOneBinding> {
+public class MainFragment02 extends BaseFragment<FragmentOneBinding> {
 
     // 初始化完成后加载数据
     private boolean isPrepared = false;
@@ -61,7 +61,7 @@ public class OneFragment extends BaseFragment<FragmentOneBinding> {
         oneAdapter = new OneAdapter(activity);
         mHotMovieBean = (HotMovieBean) aCache.getAsObject(Constants.ONE_HOT_MOVIE);
         isPrepared = true;
-        DebugUtil.error("---OneFragment   --onActivityCreated");
+        DebugUtil.error("---MainFragment02   --onActivityCreated");
     }
 
     /**
@@ -70,7 +70,7 @@ public class OneFragment extends BaseFragment<FragmentOneBinding> {
      */
     @Override
     protected void loadData() {
-        DebugUtil.error("------OneFragment---loadData: ");
+        DebugUtil.error("------MainFragment02---loadData: ");
 
         if (!isPrepared || !mIsVisible) {
             return;
@@ -212,7 +212,7 @@ public class OneFragment extends BaseFragment<FragmentOneBinding> {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        DebugUtil.error("--OneFragment   ----onDestroy");
+        DebugUtil.error("--MainFragment02   ----onDestroy");
     }
 
     /**
@@ -221,6 +221,6 @@ public class OneFragment extends BaseFragment<FragmentOneBinding> {
     @Override
     public void onResume() {
         super.onResume();
-        DebugUtil.error("--OneFragment   ----onResume");
+        DebugUtil.error("--MainFragment02   ----onResume");
     }
 }

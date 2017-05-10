@@ -12,7 +12,6 @@
             android:background="@color/colorTabBg"
             android:orientation="vertical">
 
-            <!--app:tabBackground="@drawable/ripple_tab_bg"-->
             <!-- ToDO:// 换肤框架 暂不支持TabLayout:tabBackground属性 -->
             <android.support.design.widget.TabLayout
                 android:id="@+id/tab_gank"

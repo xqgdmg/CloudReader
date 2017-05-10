@@ -25,13 +25,13 @@ import com.example.jingbin.cloudreader.databinding.NavHeaderMainBinding;
 import com.example.jingbin.cloudreader.http.rx.RxBus;
 import com.example.jingbin.cloudreader.http.rx.RxBusBaseMessage;
 import com.example.jingbin.cloudreader.http.rx.RxCodeConstants;
-import com.example.jingbin.cloudreader.ui.book.BookFragment;
-import com.example.jingbin.cloudreader.ui.gank.GankFragment;
-import com.example.jingbin.cloudreader.ui.menu.NavAboutActivity;
-import com.example.jingbin.cloudreader.ui.menu.NavDeedBackActivity;
+import com.example.jingbin.cloudreader.ui.book.MainFragment03;
+import com.example.jingbin.cloudreader.ui.gank.MainFragment01;
+import com.example.jingbin.cloudreader.ui.menu.AboutMeActivity;
+import com.example.jingbin.cloudreader.ui.menu.FeedBackActivity;
 import com.example.jingbin.cloudreader.ui.menu.NavDownloadActivity;
 import com.example.jingbin.cloudreader.ui.menu.NavHomePageActivity;
-import com.example.jingbin.cloudreader.ui.one.OneFragment;
+import com.example.jingbin.cloudreader.ui.one.MainFragment02;
 import com.example.jingbin.cloudreader.utils.CommonUtils;
 import com.example.jingbin.cloudreader.utils.ImgLoadUtil;
 import com.example.jingbin.cloudreader.utils.PerfectClickListener;
@@ -114,12 +114,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * inflateHeaderView 进来的布局要宽一些
      */
     private void initDrawerLayout() {
-        navView.inflateHeaderView(R.layout.nav_header_main);
+        navView.inflateHeaderView(R.layout.nav_header_main);// 左边的 drawerLayout
         View headerView = navView.getHeaderView(0);
         bind = DataBindingUtil.bind(headerView);
         bind.setListener(this);
+
+        // 夜间模式按钮，SwitchCompat
         bind.dayNightSwitch.setChecked(SPUtils.getNightMode());
 
+        // 普通ImageView 显示圆形图片（ BitmapTransformation ）
         ImgLoadUtil.displayCircle(bind.ivAvatar, ConstantsImageUrl.IC_AVATAR);
         bind.llNavExit.setOnClickListener(this);
         bind.ivAvatar.setOnClickListener(this);
@@ -133,9 +136,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initContentFragment() {
         ArrayList<Fragment> mFragmentList = new ArrayList<>();
-        mFragmentList.add(new GankFragment());
-        mFragmentList.add(new OneFragment());
-        mFragmentList.add(new BookFragment());
+        mFragmentList.add(new MainFragment01());
+        mFragmentList.add(new MainFragment02());
+        mFragmentList.add(new MainFragment03());
         // 注意使用的是：getSupportFragmentManager
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragmentList);
         vpContent.setAdapter(adapter);
@@ -172,10 +175,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             NavDownloadActivity.start(MainActivity.this);
                             break;
                         case R.id.ll_nav_deedback:// 问题反馈
-                            NavDeedBackActivity.start(MainActivity.this);
+                            FeedBackActivity.start(MainActivity.this);
                             break;
                         case R.id.ll_nav_about:// 关于云阅
-                            NavAboutActivity.start(MainActivity.this);
+                            AboutMeActivity.start(MainActivity.this);
                             break;
                         case R.id.ll_nav_login:// 登录GitHub账号
                             WebViewActivity.loadUrl(v.getContext(), "https://github.com/login", "登录GitHub账号");

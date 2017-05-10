@@ -79,10 +79,10 @@
             android:name=".ui.menu.NavHomePageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.menu.NavDeedBackActivity"
+            android:name=".ui.menu.FeedBackActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.menu.NavAboutActivity"
+            android:name=".ui.menu.AboutMeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.book.child.BookDetailActivity"

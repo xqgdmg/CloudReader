@@ -10,8 +10,8 @@ import com.example.jingbin.cloudreader.base.BaseFragment;
 import com.example.jingbin.cloudreader.databinding.FragmentGankBinding;
 import com.example.jingbin.cloudreader.http.rx.RxBus;
 import com.example.jingbin.cloudreader.http.rx.RxCodeConstants;
-import com.example.jingbin.cloudreader.ui.gank.child.AndroidFragment;
-import com.example.jingbin.cloudreader.ui.gank.child.CustomFragment;
+import com.example.jingbin.cloudreader.ui.gank.child.BigAndroidFragment;
+import com.example.jingbin.cloudreader.ui.gank.child.CustomGankFragment;
 import com.example.jingbin.cloudreader.ui.gank.child.EverydayFragment;
 import com.example.jingbin.cloudreader.ui.gank.child.WelfareFragment;
 import com.example.jingbin.cloudreader.view.MyFragmentPagerAdapter;
@@ -25,7 +25,7 @@ import rx.functions.Action1;
  * Created by jingbin on 16/11/21.
  * 展示干货的页面
  */
-public class GankFragment extends BaseFragment<FragmentGankBinding> {
+public class MainFragment01 extends BaseFragment<FragmentGankBinding> {
 
     private ArrayList<String> mTitleList = new ArrayList<>(4);
     private ArrayList<Fragment> mFragments = new ArrayList<>(4);
@@ -36,8 +36,9 @@ public class GankFragment extends BaseFragment<FragmentGankBinding> {
 
         showLoading();
         initFragmentList();
+
         /**
-         * 注意使用的是：getChildFragmentManager，
+         * 注意使用的是：getChildFragmentManager，( 嵌套 )
          * 这样setOffscreenPageLimit()就可以添加上，保留相邻3个实例，切换时不会卡
          * 但会内存溢出，在显示时加载数据
          */
@@ -65,8 +66,8 @@ public class GankFragment extends BaseFragment<FragmentGankBinding> {
         mTitleList.add("大安卓");
         mFragments.add(new EverydayFragment());
         mFragments.add(new WelfareFragment());
-        mFragments.add(new CustomFragment());
-        mFragments.add(AndroidFragment.newInstance("Android"));
+        mFragments.add(new CustomGankFragment());
+        mFragments.add(BigAndroidFragment.newInstance("Android"));
     }
 
     /**
