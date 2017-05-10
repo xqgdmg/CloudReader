@@ -18,15 +18,6 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
     public void onBindViewHolder(BaseRecyclerViewHolder holder, final int position) {
         holder.onBaseBindViewHolder(data.get(position), position);
 
-//        holder.itemView.setOnClickListener(new PerfectClickListener() {
-//            @Override
-//            protected void onNoDoubleClick(View v) {
-//                if (listener!=null){
-//                    listener.onClick(data.get(position), position);
-//                }
-//            }
-//        });
-
     }
 
     @Override

@@ -219,7 +219,6 @@
 
             <!--夜间模式，正在完善-->
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/ripple_one_item_bg"
@@ -244,6 +243,7 @@
                     android:textColor="@color/colorContent"
                     android:textSize="15sp" />
 
+                <!-- 系统只带的开光按钮-->
                 <android.support.v7.widget.SwitchCompat
                     android:id="@+id/day_night_switch"
                     android:layout_width="wrap_content"
