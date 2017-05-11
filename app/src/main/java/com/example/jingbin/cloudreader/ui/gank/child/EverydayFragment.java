@@ -298,11 +298,12 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
             bindingView.xrvEveryday.noMoreLoading();
         }
         bindingView.xrvEveryday.setLayoutManager(new LinearLayoutManager(getContext()));
+
         // 需加，不然滑动不流畅，系统属性
         bindingView.xrvEveryday.setNestedScrollingEnabled(false);
-        
-        // 
+        // 设置这个可以避免重复的增删造成而外的浪费资源
         bindingView.xrvEveryday.setHasFixedSize(false);
+
         bindingView.xrvEveryday.setItemAnimator(new DefaultItemAnimator());
     }
 
@@ -314,10 +315,6 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
             mEverydayAdapter.clear();
         }
         mEverydayAdapter.addAll(lists);
-//        DebugUtil.error("----111111 ");
-//        bindingView.xrvEveryday.setAdapter(mEverydayAdapter);
-//        mEverydayAdapter.notifyDataSetChanged();
-//        DebugUtil.error("----222222 ");
         maCache.remove(Constants.EVERYDAY_CONTENT);
         // 缓存三天，这样就可以取到缓存了！
         maCache.put(Constants.EVERYDAY_CONTENT, lists, 259200);
@@ -431,7 +428,6 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        DebugUtil.error("--EverydayFragment   ----onDestroy");
     }
 
 }
