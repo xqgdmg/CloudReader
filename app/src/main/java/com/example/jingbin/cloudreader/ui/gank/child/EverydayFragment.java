@@ -84,7 +84,6 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        showLoading();
         showContentView();
         bindingView.llLoading.setVisibility(View.VISIBLE);
         animation = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -97,9 +96,8 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
         maCache = ACache.get(getContext());
         mEverydayModel = new EverydayModel();
         mBannerImages = (ArrayList<String>) maCache.getAsObject(Constants.BANNER_PIC);
-        DebugUtil.error("----mBannerImages: " + (mBannerImages == null));
-        DebugUtil.error("----mLists: " + (mLists == null));
 
+        // 头布局
         mHeaderBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.header_item_everyday, null, false);
         // 设置本地数据点击事件等
         initLocalSetting();
@@ -172,6 +170,8 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
         mEverydayModel.setData(getTodayTime().get(0), getTodayTime().get(1), getTodayTime().get(2));
 //        DebugUtil.error("" + year + month + day);
         // 显示日期,去掉第一位的"0"
+
+        // 这几个布局没有写在 xml 上面
         mHeaderBinding.includeEveryday.tvDailyText.setText(getTodayTime().get(2).indexOf("0") == 0 ?
                 getTodayTime().get(2).replace("0", "") : getTodayTime().get(2));
         mHeaderBinding.includeEveryday.ibXiandu.setOnClickListener(new PerfectClickListener() {
@@ -283,10 +283,14 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
     private void initRecyclerView() {
         bindingView.xrvEveryday.setPullRefreshEnabled(false);
         bindingView.xrvEveryday.setLoadingMoreEnabled(false);
+
+        // 添加头部
         if (mHeaderView == null) {
             mHeaderView = mHeaderBinding.getRoot();
             bindingView.xrvEveryday.addHeaderView(mHeaderView);
         }
+        
+        // 设置尾部
         if (mFooterView == null) {
             mFooterBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.footer_item_everyday, null, false);
             mFooterView = mFooterBinding.getRoot();
@@ -294,8 +298,10 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
             bindingView.xrvEveryday.noMoreLoading();
         }
         bindingView.xrvEveryday.setLayoutManager(new LinearLayoutManager(getContext()));
-        // 需加，不然滑动不流畅
+        // 需加，不然滑动不流畅，系统属性
         bindingView.xrvEveryday.setNestedScrollingEnabled(false);
+        
+        // 
         bindingView.xrvEveryday.setHasFixedSize(false);
         bindingView.xrvEveryday.setItemAnimator(new DefaultItemAnimator());
     }

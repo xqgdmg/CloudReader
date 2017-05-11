@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by jingbin on 2016/11/24.
+ * 每日推荐，xml，bean
  */
 
 public class GankIoDataBean implements Serializable {
@@ -87,21 +87,6 @@ public class GankIoDataBean implements Serializable {
             return who;
         }
 
-        @Override
-        public String toString() {
-            return "ResultsBean{" +
-                    "who='" + who + '\'' +
-                    ", used=" + used +
-                    ", url='" + url + '\'' +
-                    ", type='" + type + '\'' +
-                    ", source='" + source + '\'' +
-                    ", publishedAt='" + publishedAt + '\'' +
-                    ", desc='" + desc + '\'' +
-                    ", createdAt='" + createdAt + '\'' +
-                    ", _id='" + _id + '\'' +
-                    '}';
-        }
-
         public List<String> getImages() {
             return images;
         }
@@ -115,11 +100,4 @@ public class GankIoDataBean implements Serializable {
         return results;
     }
 
-    @Override
-    public String toString() {
-        return "GankIoDataBean{" +
-                "error=" + error +
-                ", results=" + results +
-                '}';
-    }
 }

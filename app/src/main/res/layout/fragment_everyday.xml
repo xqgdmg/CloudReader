@@ -2,6 +2,7 @@
 
     <data>
 
+        <!-- 这个写在这里有什么意义？ -->
         <variable
             name="gankBean"
             type="com.example.jingbin.cloudreader.bean.GankIoDataBean" />

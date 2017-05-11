@@ -22,7 +22,6 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by jingbin on 2016/12/1.
  * 每日推荐model
  */
 
@@ -134,14 +133,14 @@ public class EverydayModel {
         listener.addSubscription(subscription);
     }
 
-    // subList没有实现序列化！缓存时会出错！
+    // subList 没有实现序列化！缓存时会出错！
     private void addUrlList(List<List<AndroidBean>> lists, List<AndroidBean> arrayList, String typeTitle) {
         // title
-        AndroidBean bean = new AndroidBean();
-        bean.setType_title(typeTitle);
-        ArrayList<AndroidBean> androidBeen = new ArrayList<>();
-        androidBeen.add(bean);
-        lists.add(androidBeen);
+        AndroidBean androidBean = new AndroidBean();
+        androidBean.setType_title(typeTitle);
+        ArrayList<AndroidBean> androidBeanList = new ArrayList<>();
+        androidBeanList.add(androidBean);
+        lists.add(androidBeanList);
 
         int androidSize = arrayList.size();
 
