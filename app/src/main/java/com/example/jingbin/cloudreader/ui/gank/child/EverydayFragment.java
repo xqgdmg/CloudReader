@@ -87,11 +87,11 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
         showContentView();
         bindingView.llLoading.setVisibility(View.VISIBLE);
         animation = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation.setDuration(3000);//设置动画持续时间
-        animation.setInterpolator(new LinearInterpolator());//不停顿
+        animation.setDuration(3000); // 设置动画持续时间
+        animation.setInterpolator(new LinearInterpolator()); // 不停顿
         animation.setRepeatCount(10);
         bindingView.ivLoading.setAnimation(animation);
-        animation.startNow();
+        animation.startNow(); // 这几把居然是系统的 api
 
         maCache = ACache.get(getContext());
         mEverydayModel = new EverydayModel();
@@ -168,7 +168,6 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
 
     private void initLocalSetting() {
         mEverydayModel.setData(getTodayTime().get(0), getTodayTime().get(1), getTodayTime().get(2));
-//        DebugUtil.error("" + year + month + day);
         // 显示日期,去掉第一位的"0"
 
         // 这几个布局没有写在 xml 上面
@@ -260,24 +259,6 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
             day = lastTime.get(2);
             showContentData();
         }
-    }
-
-    /**
-     * 无数据返回时，暂时去掉
-     */
-    private void setEmptyAdapter() {
-        showRotaLoading(false);
-
-        EmptyAdapter emptyAdapter = new EmptyAdapter();
-        ArrayList<String> list = new ArrayList<>();
-        list.add(CommonUtils.getString(R.string.string_everyday_empty));
-        emptyAdapter.addAll(list);
-        bindingView.xrvEveryday.setAdapter(emptyAdapter);
-
-        // 保存请求的日期
-        SPUtils.putString("everyday_data", TimeUtil.getData());
-
-        mIsFirst = false;
     }
 
     private void initRecyclerView() {

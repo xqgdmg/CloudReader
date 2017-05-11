@@ -74,6 +74,8 @@ public class EverydayModel {
         SPUtils.putString(HOME_ONE, "");
         SPUtils.putString(HOME_TWO, "");
         SPUtils.putString(HOME_SIX, "");
+
+         //
         Func1<GankIoDayBean, Observable<List<List<AndroidBean>>>> func1 = new Func1<GankIoDayBean, Observable<List<List<AndroidBean>>>>() {
             @Override
             public Observable<List<List<AndroidBean>>> call(GankIoDayBean gankIoDayBean) {
@@ -126,9 +128,10 @@ public class EverydayModel {
             }
         };
 
+         // 获取  每日数据
         Subscription subscription = HttpClient.Builder.getGankIOServer().getGankIoDay(year, month, day)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .flatMap(func1)
+                .flatMap(func1) // 将该合并的结果发射出去。
                 .subscribe(observer);
         listener.addSubscription(subscription);
     }
