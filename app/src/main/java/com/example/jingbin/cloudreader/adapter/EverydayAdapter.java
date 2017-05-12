@@ -28,7 +28,8 @@ import com.example.jingbin.cloudreader.view.webview.WebViewActivity;
 import java.util.List;
 
 /**
- * Created by jingbin on 2016/12/27.
+ * 每日推荐适配器
+ * 4 种布局
  */
 
 public class EverydayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> {
@@ -38,6 +39,13 @@ public class EverydayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
     private static final int TYPE_TWO = 3;// 二张图
     private static final int TYPE_THREE = 4;// 三张图
 
+    /**
+     * 根据服务器返回标题的类型
+     * 0.标题
+     * 1.一张图片
+     * 2.两张图片
+     * 3.三张图片
+     */
     @Override
     public int getItemViewType(int position) {
         if (!TextUtils.isEmpty(getData().get(position).get(0).getType_title())) {
@@ -52,27 +60,34 @@ public class EverydayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
         return super.getItemViewType(position);
     }
 
-
+    /**
+     * 返回不同的 ViewHolder
+     */
     @Override
     public BaseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
-            case TYPE_TITLE:
+            case TYPE_TITLE:// 标题
                 return new TitleHolder(parent, R.layout.item_everyday_title);
-            case TYPE_ONE:
+            case TYPE_ONE:// 一张图片
                 return new OneHolder(parent, R.layout.item_everyday_one);
-            case TYPE_TWO:
+            case TYPE_TWO:// 两张图片
                 return new TwoHolder(parent, R.layout.item_everyday_two);
-            default:
+            default:// 三张图片
                 return new ThreeHolder(parent, R.layout.item_everyday_three);
         }
     }
 
+    /**
+     * 标题 Holder
+     * index 设置 RxBus 点击标题上更多的跳转
+     */
     private class TitleHolder extends BaseRecyclerViewHolder<List<AndroidBean>, ItemEverydayTitleBinding> {
 
         TitleHolder(ViewGroup parent, int title) {
             super(parent, title);
         }
 
+        // BaseRecyclerViewHolder binding
         @Override
         public void onBindViewHolder(List<AndroidBean> object, final int position) {
             int index = 0;
@@ -110,6 +125,7 @@ public class EverydayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
                 binding.viewLine.setVisibility(View.GONE);
             }
 
+            // 点击更多的跳转
             final int finalIndex = index;
             binding.llTitleMore.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -120,10 +136,14 @@ public class EverydayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
         }
     }
 
+    /**
+     * 一张图片
+     * 只需要实现  onBindViewHolder，其他 base 中封装了
+     */
     private class OneHolder extends BaseRecyclerViewHolder<List<AndroidBean>, ItemEverydayOneBinding> {
 
         OneHolder(ViewGroup parent, int title) {
-            super(parent, title);
+            super(parent, title);// 调用 super 获得 binding
         }
 
         @Override
@@ -132,22 +152,32 @@ public class EverydayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
                 binding.tvOnePhotoTitle.setVisibility(View.GONE);
                 binding.ivOnePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-                Glide.with(binding.ivOnePhoto.getContext())
-                        .load(object.get(0).getUrl())
-                        .crossFade(1500)
-                        .placeholder(R.drawable.img_two_bi_one)
-                        .error(R.drawable.img_two_bi_one)
-                        .into(binding.ivOnePhoto);
+                displayOneImg(object);
 
             } else {
                 binding.tvOnePhotoTitle.setVisibility(View.VISIBLE);
                 setDes(object, 0, binding.tvOnePhotoTitle);
                 displayRandomImg(1, 0, binding.ivOnePhoto, object);
             }
+
+            // 通过根布局设置 item 的点击事件
             setOnClick(binding.llOnePhoto, object.get(0));
+        }
+
+        // 使用 Glide 加载一张图片
+        private void displayOneImg(List<AndroidBean> object) {
+            Glide.with(binding.ivOnePhoto.getContext())
+                    .load(object.get(0).getUrl())
+                    .crossFade(1500)  // 其实是 0 -》 1 的透明度的变化
+                    .placeholder(R.drawable.img_two_bi_one)
+                    .error(R.drawable.img_two_bi_one)
+                    .into(binding.ivOnePhoto);
         }
     }
 
+    /**
+     * 两张片 Holder
+     */
     private class TwoHolder extends BaseRecyclerViewHolder<List<AndroidBean>, ItemEverydayTwoBinding> {
 
         TwoHolder(ViewGroup parent, int title) {
@@ -165,6 +195,9 @@ public class EverydayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
         }
     }
 
+    /**
+     * 三张图片 Holder
+     */
     private class ThreeHolder extends BaseRecyclerViewHolder<List<AndroidBean>, ItemEverydayThreeBinding> {
 
         ThreeHolder(ViewGroup parent, int title) {
@@ -185,16 +218,27 @@ public class EverydayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
         }
     }
 
+    /**
+     * 设置描述
+     */
     private void setDes(List<AndroidBean> object, int position, TextView textView) {
         textView.setText(object.get(position).getDesc());
     }
 
+    /**
+     * 展示随机图片
+     */
     private void displayRandomImg(int imgNumber, int position, ImageView imageView, List<AndroidBean> object) {
         ImgLoadUtil.displayRandom(imgNumber, object.get(position).getImage_url(), imageView);
     }
 
 
+    /**
+     * 设置点击事件 WebView
+     */
     private void setOnClick(final LinearLayout linearLayout, final AndroidBean bean) {
+
+        // 单击 跳转 WebView
         linearLayout.setOnClickListener(new PerfectClickListener() {
             @Override
             protected void onNoDoubleClick(View v) {
@@ -202,6 +246,9 @@ public class EverydayAdapter extends BaseRecyclerViewAdapter<List<AndroidBean>> 
             }
         });
 
+        /**
+         * 长按点击事件，弹窗，在跳 WebView
+         */
         linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

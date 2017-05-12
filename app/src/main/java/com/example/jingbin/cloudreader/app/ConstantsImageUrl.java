@@ -3,11 +3,9 @@ package com.example.jingbin.cloudreader.app;
 import java.util.ArrayList;
 
 /**
- * Created by jingbin on 2017/1/18.
  * 登录到期时间 2018-01-18 需重新登录
- * *.bkt.clouddn.com为新创建存储空间后系统默认为用户生成的测试域名，此类测试域名，限总流量，限单 IP 访问频率，限速，仅供测试使用。
- * 单IP每秒限制请求次数10次，大于10次403禁止5秒。
- * 单url限速8Mbps，下载到10MB之后，限速1Mbps。
+ *
+ * 提供不同的图片地址，七牛云存储，可以自己注册账号去放图片，免费10g，上传图片的时候记得名字后面带个数字，方便处理
  */
 
 public class ConstantsImageUrl {
@@ -55,12 +53,10 @@ public class ConstantsImageUrl {
     /**
      * 一张图的随机图
      */
-    private static final String HOME_ONE_1 = "http://ojyz0c8un.bkt.clouddn.com/home_one_1.png";
 
     private static ArrayList<String> oneList;
 
     private static ArrayList<String> getOneUrl() {
-//        DebugUtil.error("oneList == null:   " + (oneList == null));
         if (oneList == null) {
             synchronized (ArrayList.class) {
                 if (oneList == null) {
@@ -75,7 +71,7 @@ public class ConstantsImageUrl {
         return oneList;
     }
 
-    // 一张图的随机图
+    // 产生不同的随机图片
     public static final String[] HOME_ONE_URLS = new String[]{
             getOneUrl().get(0), getOneUrl().get(1), getOneUrl().get(2), getOneUrl().get(3)
             , getOneUrl().get(4), getOneUrl().get(5), getOneUrl().get(6), getOneUrl().get(7)
@@ -85,11 +81,9 @@ public class ConstantsImageUrl {
 
     //-----------------------------------------------------------------------------
     // 1 -- 23
-    private static final String HOME_SIX_1 = "http://ojyz0c8un.bkt.clouddn.com/home_six_1.png";
     private static ArrayList<String> sixList;
 
     private static ArrayList<String> getSixUrl() {
-//        DebugUtil.error("sixList == null:   " + (sixList == null));
         if (sixList == null) {
             synchronized (ArrayList.class) {
                 if (sixList == null) {

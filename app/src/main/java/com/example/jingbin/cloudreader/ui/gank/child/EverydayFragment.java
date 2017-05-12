@@ -13,7 +13,6 @@ import android.view.animation.RotateAnimation;
 
 import com.bumptech.glide.Glide;
 import com.example.jingbin.cloudreader.R;
-import com.example.jingbin.cloudreader.adapter.EmptyAdapter;
 import com.example.jingbin.cloudreader.adapter.EverydayAdapter;
 import com.example.jingbin.cloudreader.app.Constants;
 import com.example.jingbin.cloudreader.base.BaseFragment;
@@ -28,7 +27,6 @@ import com.example.jingbin.cloudreader.http.rx.RxBus;
 import com.example.jingbin.cloudreader.http.rx.RxBusBaseMessage;
 import com.example.jingbin.cloudreader.http.rx.RxCodeConstants;
 import com.example.jingbin.cloudreader.model.EverydayModel;
-import com.example.jingbin.cloudreader.utils.CommonUtils;
 import com.example.jingbin.cloudreader.utils.DebugUtil;
 import com.example.jingbin.cloudreader.utils.GlideImageLoader;
 import com.example.jingbin.cloudreader.utils.PerfectClickListener;
@@ -129,7 +127,7 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
 
     @Override
     protected void loadData() {
-        // 显示时轮播图滚动
+        // 显示时轮播图才滚动
         if (mHeaderBinding != null && mHeaderBinding.banner != null) {
             mHeaderBinding.banner.startAutoPlay();
             mHeaderBinding.banner.setDelayTime(4000);
@@ -145,21 +143,26 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
 
                 isOldDayRequest = false;
                 mEverydayModel.setData(getTodayTime().get(0), getTodayTime().get(1), getTodayTime().get(2));
-                showRotaLoading(true);
+                showOrHideLoading(true);
+
                 loadBannerPicture();
                 showContentData();
             } else {// 小于，取缓存没有请求前一天
 
                 ArrayList<String> lastTime = TimeUtil.getLastTime(getTodayTime().get(0), getTodayTime().get(1), getTodayTime().get(2));
+
+                // 设置 ViewModel 的年，月，日 是什么意思？？？
+                // 只要日期变了，都要去 ViewModel 更新一下？？？ 原因是请求服务器数据的时候，要传时间的参数。。。。。
                 mEverydayModel.setData(lastTime.get(0), lastTime.get(1), lastTime.get(2));
                 year = lastTime.get(0);
                 month = lastTime.get(1);
                 day = lastTime.get(2);
 
                 isOldDayRequest = true;// 是昨天
+
                 getACacheData();
             }
-        } else {// 当天，取缓存没有请求当天
+        } else {// 当天，直接取缓存
 
             isOldDayRequest = false;
             getACacheData();
@@ -167,10 +170,10 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
     }
 
     private void initLocalSetting() {
+        // ViewModel 保存数据到它的成员变量
         mEverydayModel.setData(getTodayTime().get(0), getTodayTime().get(1), getTodayTime().get(2));
-        // 显示日期,去掉第一位的"0"
 
-        // 这几个布局没有写在 xml 上面
+        // 头布局显示 和 点击
         mHeaderBinding.includeEveryday.tvDailyText.setText(getTodayTime().get(2).indexOf("0") == 0 ?
                 getTodayTime().get(2).replace("0", "") : getTodayTime().get(2));
         mHeaderBinding.includeEveryday.ibXiandu.setOnClickListener(new PerfectClickListener() {
@@ -188,7 +191,7 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
     }
 
     /**
-     * 取缓存
+     * 取缓存，并显示数据
      */
     private void getACacheData() {
         if (!mIsFirst) {
@@ -198,14 +201,15 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
         if (mBannerImages != null && mBannerImages.size() > 0) {
             mHeaderBinding.banner.setImages(mBannerImages).setImageLoader(new GlideImageLoader()).start();
         } else {
-            loadBannerPicture();
+            loadBannerPicture();// Banner 显示
         }
+
         mLists = (ArrayList<List<AndroidBean>>) maCache.getAsObject(Constants.EVERYDAY_CONTENT);
         if (mLists != null && mLists.size() > 0) {
             setAdapter(mLists);
         } else {
-            showRotaLoading(true);
-            showContentData();
+            showOrHideLoading(true);
+            showContentData();// 内容 显示
         }
     }
 
@@ -286,27 +290,34 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
         bindingView.xrvEveryday.setHasFixedSize(false);
 
         bindingView.xrvEveryday.setItemAnimator(new DefaultItemAnimator());
+
+        // setAdaptet 在 setAdapter 方法中
+        // loadData() 的时候才会 setAdapter
     }
 
     private void setAdapter(ArrayList<List<AndroidBean>> lists) {
-        showRotaLoading(false);
+        showOrHideLoading(false);
         if (mEverydayAdapter == null) {
             mEverydayAdapter = new EverydayAdapter();
         } else {
             mEverydayAdapter.clear();
         }
         mEverydayAdapter.addAll(lists);
+
+        // 清除缓存
         maCache.remove(Constants.EVERYDAY_CONTENT);
         // 缓存三天，这样就可以取到缓存了！
         maCache.put(Constants.EVERYDAY_CONTENT, lists, 259200);
 
         if (isOldDayRequest) {
+            // 更新请求的最后时间
             ArrayList<String> lastTime = TimeUtil.getLastTime(getTodayTime().get(0), getTodayTime().get(1), getTodayTime().get(2));
             SPUtils.putString("everyday_data", lastTime.get(0) + "-" + lastTime.get(1) + "-" + lastTime.get(2));
         } else {
             // 保存请求的日期
             SPUtils.putString("everyday_data", TimeUtil.getData());
         }
+
         mIsFirst = false;
 
         bindingView.xrvEveryday.setAdapter(mEverydayAdapter);
@@ -340,6 +351,9 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
 
     }
 
+    /**
+     * 显示 Banner 图片
+     */
     private void loadBannerPicture() {
         mEverydayModel.showBanncerPage(new RequestImpl() {
             @Override
@@ -370,7 +384,7 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
                             }
                         });
                         maCache.remove(Constants.BANNER_PIC);
-                        maCache.put(Constants.BANNER_PIC, mBannerImages, 30000);
+                        maCache.put(Constants.BANNER_PIC, mBannerImages, 30000);// 造成了点击无效
                     }
                 }
             }
@@ -387,7 +401,7 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
         });
     }
 
-    private void showRotaLoading(boolean isLoading) {
+    private void showOrHideLoading(boolean isLoading) {
         if (isLoading) {
             bindingView.llLoading.setVisibility(View.VISIBLE);
             bindingView.xrvEveryday.setVisibility(View.GONE);
@@ -402,7 +416,7 @@ public class EverydayFragment extends BaseFragment<FragmentEverydayBinding> {
     @Override
     protected void onRefresh() {
         showContentView();
-        showRotaLoading(true);
+        showOrHideLoading(true);
         loadData();
     }
 

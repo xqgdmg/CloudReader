@@ -118,6 +118,8 @@ public class XRecyclerView extends RecyclerView {
         isLoadingData = false;
         final View footView = mFootViews.get(0);
         isnomore = true;
+
+        // 判断是加载提示还是视图
         if (footView instanceof LoadingMoreFooter) {
             ((LoadingMoreFooter) footView).setState(LoadingMoreFooter.STATE_NOMORE);
         } else {

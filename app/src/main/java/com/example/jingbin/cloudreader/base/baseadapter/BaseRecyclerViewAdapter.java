@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by jingbin on 2016/11/25
+ * notifyItemRangeChanged 是告知列表项的改动
+ *      如果操作是列表项的插入，应该使用 notifyItemRangeInserted
+ *      如果是删除，notifyItemRemoved(position) --》 并且不能再调用 notifyItemRangeChanged，不然可能出现某个条目数据存在，但是UI显示空白的现象
  */
 public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecyclerViewHolder> {
 

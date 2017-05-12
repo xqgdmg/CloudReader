@@ -22,17 +22,22 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
- * 每日推荐model
+ * 每日推荐 model
+ *
+ * MVP 模式将 Controller 改名为 Presenter，同时改变了通信方向。
+ * MVVM 模式将 Presenter 改名为 ViewModel，基本上与 MVP 模式完全一致。（没有构造方法）
  */
-
 public class EverydayModel {
 
+    // 请求 每日推荐的数据时需要使用
     private String year = "2016";
     private String month = "11";
     private String day = "24";
-    private static final String HOME_ONE = "home_one";
-    private static final String HOME_TWO = "home_two";
-    private static final String HOME_SIX = "home_six";
+
+    //
+    private static final String HOME_ONE = "home_one";// 一张图片
+    private static final String HOME_TWO = "home_two";// 两张图片
+    private static final String HOME_SIX = "home_six";// 三张图片
 
     public void setData(String year, String month, String day) {
         this.year = year;
@@ -71,11 +76,13 @@ public class EverydayModel {
      * 显示RecyclerView数据
      */
     public void showRecyclerViewData(final RequestImpl listener) {
+
+        // 至空保存的图片
         SPUtils.putString(HOME_ONE, "");
         SPUtils.putString(HOME_TWO, "");
         SPUtils.putString(HOME_SIX, "");
 
-         //
+         // 在 flatMap 中使用
         Func1<GankIoDayBean, Observable<List<List<AndroidBean>>>> func1 = new Func1<GankIoDayBean, Observable<List<List<AndroidBean>>>>() {
             @Override
             public Observable<List<List<AndroidBean>>> call(GankIoDayBean gankIoDayBean) {
@@ -112,6 +119,7 @@ public class EverydayModel {
             }
         };
 
+        // 在 subscribe 中使用
         Observer<List<List<AndroidBean>>> observer = new Observer<List<List<AndroidBean>>>() {
             @Override
             public void onCompleted() {
@@ -200,7 +208,6 @@ public class EverydayModel {
             androidBean.setType(arrayList.get(i).getType());
             // 跳转链接
             androidBean.setUrl(arrayList.get(i).getUrl());
-//            DebugUtil.error("---androidSize:  " + androidSize);
             // 随机图的url
             if (androidSize == 1) {
                 androidBean.setImage_url(ConstantsImageUrl.HOME_ONE_URLS[getRandom(1)]);//一图
@@ -218,16 +225,16 @@ public class EverydayModel {
      * 取不同的随机图，在每次网络请求时重置
      */
     private int getRandom(int type) {
-        String saveWhere = null;
+        String saveWhere = null;// sp 中保存的 key
         int urlLength = 0;
         if (type == 1) {
-            saveWhere = HOME_ONE;
+            saveWhere = HOME_ONE; // 一张
             urlLength = ConstantsImageUrl.HOME_ONE_URLS.length;
         } else if (type == 2) {
-            saveWhere = HOME_TWO;
+            saveWhere = HOME_TWO; // 二张
             urlLength = ConstantsImageUrl.HOME_TWO_URLS.length;
         } else if (type == 3) {
-            saveWhere = HOME_SIX;
+            saveWhere = HOME_SIX; // 三张
             urlLength = ConstantsImageUrl.HOME_SIX_URLS.length;
         }
 

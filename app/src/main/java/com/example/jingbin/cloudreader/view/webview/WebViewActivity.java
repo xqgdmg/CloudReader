@@ -84,7 +84,9 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
             actionBar.setHomeAsUpIndicator(R.drawable.icon_back);
         }
         setTitle(mTitle);
-        mTitleToolBar.setOverflowIcon(ContextCompat.getDrawable(this, R.drawable.actionbar_more));
+        mTitleToolBar.setOverflowIcon(ContextCompat.getDrawable(this, R.drawable.actionbar_more));// 菜单栏的图片
+
+        // 设置setNavigationIcon，setNavigationOnClickListener必须在setSupportActionBar后面，左上角独立的点击事件
         mTitleToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -378,6 +380,7 @@ public class WebViewActivity extends AppCompatActivity implements IWebPageView {
 
     /**
      * 打开网页:
+     *      自己跳自己是为了别人跳的 时候知道带什么参数过来？
      *
      * @param mContext 上下文
      * @param mUrl     要加载的网页url
